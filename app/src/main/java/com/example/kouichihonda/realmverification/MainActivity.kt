@@ -18,18 +18,6 @@ class MainActivity : AppCompatActivity() {
         this.sampleRealmInDiskLocalDataSource = SampleRealmInDiskLocalDataSource()
         this.sampleRealmInMemoryLocalDataSource = SampleRealmInMemoryLocalDataSource()
 
-        this.sampleRealmInDiskLocalDataSource?.find()?.addChangeListener { t, _ ->
-            t.firstOrNull()?.let {
-                Timber.tag(this::class.java.simpleName).d(it.sampleString)
-                this.activityMainTextView.text = it.sampleString
-            }
-        }
-        this.sampleRealmInMemoryLocalDataSource?.find()?.addChangeListener { t, _ ->
-            t.firstOrNull()?.let {
-                this.activityMain2TextView.text = it.sampleString
-            }
-        }
-
         Timber.tag(this::class.java.simpleName).d("MainActivity")
         this.sampleRealmInDiskLocalDataSource?.save(sampleString = "MainActivity")
         this.sampleRealmInMemoryLocalDataSource?.save(sampleString = "MainActivityInMemory")
@@ -43,5 +31,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
 
+        this.sampleRealmInDiskLocalDataSource?.find()?.addChangeListener { t, _ ->
+            t.firstOrNull()?.let {
+                Timber.tag(this::class.java.simpleName).d(it.sampleString)
+                this.activityMainTextView.text = it.sampleString
+            }
+        }
+        this.sampleRealmInMemoryLocalDataSource?.find()?.addChangeListener { t, _ ->
+            t.firstOrNull()?.let {
+                this.activityMain2TextView.text = it.sampleString
+            }
+        }
+    }
 }

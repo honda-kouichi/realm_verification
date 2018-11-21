@@ -3,6 +3,7 @@ package com.example.kouichihonda.realmverification
 import io.realm.RealmModel
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
+import io.realm.annotations.Required
 
 /**
  * Created by kouichihonda on 2018/08/17.
@@ -11,5 +12,6 @@ import io.realm.annotations.RealmClass
 @RealmClass
 class SampleRealmInMemoryEntity(
     @PrimaryKey var id: Int = 0,
-    var sampleString: String = ""
+    @Required var sampleString: String = ""
+    , @Required var sampleString2: String = ""
 ) : RealmModel
